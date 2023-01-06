@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %} 
+{% load static %}
+<section class="content">
+    <div class="header">
+        <img src="{% static 'img/logo.png' %}" alt="" style="width:60px" />
+        <h1>Edit</h1>
+    </div>
+    <section class="post_form">
+        <img src="{% static 'img/user.png'%}" style="height: 60px;"/>
+        <form action="/" method="POST" enctype="multipart/form-data">
+           {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required />
+            <textarea name="body" placeholder="Whats Happening?" required></textarea>
+            <div class="tweet-btn">
+                <input class="file" name="image" type="file" value="choose file" />
+                <a href="/">
+                    <input type="button" value="cancel" style="width: 60px;"/>
+                </a> 
+            </div>
+            <input id="twt-btn"type="submit" value="Update" />
+        </form>
+        </form>
+    </section>
+
+    {% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block content %} 
+{% load static %}
+
+
+ <section class="content">
+    <div class="header">
+        <img src="{% static 'img/logo.png' %}" alt="" style="width:60px; height:60px;" />
+        <h1 style="text-align:left 60px;">Home</h1>
+    </div>
+    <section class="post_form">
+        <img src="{% static 'img/user.png'%}" style="height: 60px;"/>
+        <form action="/" method="POST" enctype="multipart/form-data">
+           {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required />
+            <textarea name="body" placeholder="Whats Happening?" required></textarea>
+            <div class="tweet-btn">
+                <input class="file" name="image" type="file" value="choose file" />
+                <input id="twt-btn"type="submit" value="Tweet" />
+            </div>
+        </form>
+        
+
+    </section>
+    <section class="posts">
+        <ul>
+            {% for post in posts reversed %} 
+            <li>
+                <img class="menu_icon js-menu-icon" src="{% static 'img/option.png' %}" />
+                <div class="menu">
+                    <a href="/delete/{{ post.id }}/">Delete</a> <br>
+                    <a href="/edit/{{ post.id }}/">Edit</a>
+                </div>
+                <div class="logo">
+                    <img src="{% static 'img/user.png'%}" />
+                </div>
+                <div class="name_body">
+                    <div class="name">{{ post.name }}</div> 
+                    <div class="datetime">{{ post.created_at }}</div>
+                    <p>{{ post.body }}</p>
+                    <img src="{{post.image.url}}" alt="loading" style="width:200px"/>
+                    <div class="Like">{{ post.count }}</div>
+                    <a href="/likes/{{ post.id }}/"><img src="{% static 'img/like.png' %}" style="height: 60px;"></a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/posts.js' %}"></script>
+</section>
+{% endblock %}
